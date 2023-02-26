@@ -2,6 +2,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { fetchSongsList } from '../../redux/reducers/songListReducer';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+
 import LoaderComponent from '../loader/loader';
 import './songlist.css'
 
@@ -19,43 +24,43 @@ export default function SongListCompnent() {
         serachKeyWord ? dispatch(fetchSongsList(serachKeyWord)) : dispatch(fetchSongsList('akon'));
     }
 
-    function searchBtn(){
+    function searchBtn() {
         let serachKeyWord = document.getElementById("searchTxt").value
         searchByName(serachKeyWord)
     }
 
     if (state.songList.isLoading) {
-        return <LoaderComponent/>;
+        return <LoaderComponent />;
     }
 
     return (
         <div className="songlist">
             <div className="search-box">
-            <input type="text" placeholder="Search by artist, album or song.." id="searchTxt"></input>
+                <input type="text" placeholder="Search by artist, album or song.." id="searchTxt"></input>
                 <button onClick={() => searchBtn()} type="submit">
                     Search
                 </button>
             </div>
 
-            
-            <ul className="list-group">
+            <List>
                 {state.songList.data && state.songList.data.map((e, index) =>
-                    <li key={index} className="list-group-item">
-                        <img src={e.artworkUrl100} className="album-image" alt={e.artistName} />
+                    <ListItem key={index}>
+                        <ListItemAvatar>
+                            <Avatar alt={e.artistName} src={e.artworkUrl100} />
+                        </ListItemAvatar>
                         <div className="songlist-details">
-                        <div className="album-list">
-                            <h4 className="albumname">{e.artistName}</h4>
-                            <p>{e.collectionName}</p>
-                            <p>{e.collectionArtistName}</p>
+                            <div className="album-list">
+                                <h4 className="albumname">{e.artistName}</h4>
+                                <p>{e.collectionName}</p>
+                            </div>
+                            <audio
+                                controls
+                                src={e.previewUrl}>
+                            </audio>
                         </div>
-                        <audio
-                            controls
-                            src={e.previewUrl}>
-                        </audio>
-                        </div>
-                    </li>
+                    </ListItem>
                 )}
-            </ul>
+            </List>
         </div>
     );
 }
