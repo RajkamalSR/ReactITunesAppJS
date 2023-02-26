@@ -1,0 +1,39 @@
+/*List Component */
+.songlist{
+    text-align: left;
+  }
+  
+  .songlist .list-group-item{
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: #fff;
+  }
+  
+  .songlist audio{
+    margin-left:auto;
+    height: 38px;
+    max-width: 210px;
+  }
+  
+  .songlist-details{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 14px;
+  }
+  
+  img.album-image {
+    width: 128px;
+  }
+
+  
+
+  @media screen and (max-width:420px){
+    .songlist audio{
+      margin-left: unset;
+    }
+    .songlist-details{
+      flex-direction: column;
+    }
+  }
