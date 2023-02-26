@@ -38,15 +38,19 @@
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   }
 
-  .infinte-scroller-loader{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .search-btn{
+      background: transparent;
+      border:0;
+      position: relative;
   }
 
-  .infinte-scroller-loader img{
-    width: 256px;
+  .search-btn .search-icon{
+    color: #fff;
+    font-size: 36px;
+    font-weight: normal;
+    position: absolute;
+    top: -7px;
+    right: -8px;
   }
   
 
