@@ -1,4 +1,5 @@
 import logo from "./../../../src/assets/images/loading.gif"
+import './loader.css'
 
 export default function LoaderComponent() {
     return (
