@@ -1,6 +1,7 @@
 /*List Component */
 .songlist{
     text-align: left;
+    position: relative;
   }
   
   .songlist .list-group-item{
@@ -22,6 +23,15 @@
     width: 100%;
     margin-left: 14px;
     align-items: center;
+  }
+
+  .songlist .loader{
+    display: block;
+    width: auto;
+    z-index: 9999;
+    position: absolute;
+    top: -74px;
+    left: 96px;
   }
   
   img.album-image {
