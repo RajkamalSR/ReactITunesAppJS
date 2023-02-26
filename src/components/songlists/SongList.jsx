@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchSongsList } from '../../redux/reducers/songListReducer';
 
 import List from '@mui/material/List';
@@ -14,14 +15,15 @@ import './songlist.css'
 export default function SongListCompnent() {
     const dispatch = useDispatch();
     let state = useSelector((state) => state);
+    var limitValue = 10;
     console.log(state, "State");
 
     useEffect(() => {
-        dispatch(fetchSongsList('akon'));
+        dispatch(fetchSongsList('akon', 10));
     }, []);
 
     function searchByName(serachKeyWord) {
-        serachKeyWord ? dispatch(fetchSongsList(serachKeyWord)) : dispatch(fetchSongsList('akon'));
+        serachKeyWord ? dispatch(fetchSongsList(serachKeyWord, limitValue)) : dispatch(fetchSongsList('akon', 10));
     }
 
     function searchBtn() {
@@ -41,26 +43,37 @@ export default function SongListCompnent() {
                     Search
                 </button>
             </div>
-
-            <List>
-                {state.songList.data && state.songList.data.map((e, index) =>
-                    <ListItem key={index}>
-                        <ListItemAvatar>
-                            <Avatar alt={e.artistName} src={e.artworkUrl100} />
-                        </ListItemAvatar>
-                        <div className="songlist-details">
-                            <div className="album-list">
-                                <h4 className="albumname">{e.artistName}</h4>
-                                <p>{e.collectionName}</p>
+            <InfiniteScroll
+                dataLength={10}
+                hasMore={true}
+                next={() => dispatch(fetchSongsList('akon', 10))}
+                endMessage={
+                    <p style={{ textAlign: "center" }}>
+                        <b>Yay! You have seen it all</b>
+                    </p>
+                }
+                loader={<div className="infinte-scroller-loader"><LoaderComponent /></div>}
+            >
+                <List>
+                    {state.songList.data && state.songList.data.map((e, index) =>
+                        <ListItem key={index}>
+                            <ListItemAvatar>
+                                <Avatar alt={e.artistName} src={e.artworkUrl100} />
+                            </ListItemAvatar>
+                            <div className="songlist-details">
+                                <div className="album-list">
+                                    <h4 className="albumname">{e.artistName}</h4>
+                                    <p>{e.collectionName}</p>
+                                </div>
+                                <audio
+                                    controls
+                                    src={e.previewUrl}>
+                                </audio>
                             </div>
-                            <audio
-                                controls
-                                src={e.previewUrl}>
-                            </audio>
-                        </div>
-                    </ListItem>
-                )}
-            </List>
+                        </ListItem>
+                    )}
+                </List>
+            </InfiniteScroll>
         </div>
     );
 }
