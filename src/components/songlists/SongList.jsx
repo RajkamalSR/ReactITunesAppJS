@@ -60,6 +60,7 @@ export default function SongListCompnent() {
                         </div>
                     </ListItem>
                 )}
+                {state.songList.data.length == 0 && <h4 className="text-center">No Results Found</h4>}
             </List>
         </div>
     );
