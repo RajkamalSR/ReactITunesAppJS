@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchSongsList } from '../../redux/reducers/songListReducer';
 
 import List from '@mui/material/List';
@@ -12,29 +12,39 @@ import './songlist.css'
 
 
 export default function SongListCompnent() {
-    let lastScrollTop = 0
+    let lastScrollTop = 0;
+    let displayLimit = 10;
+    let dataLength;
     const dispatch = useDispatch();
     let state = useSelector((state) => state);
-    console.log(state, "State");
+    //let displayResults = state.songList.data.slice(offset, displayLimit);
+    const [displayResultsCount, setDisplayResultsCount] = useState(10)
+    const [displayResults, setDisplayResults] = useState([]);
 
     useEffect(() => {
         dispatch(fetchSongsList('akon'));
     }, []);
 
-    useEffect(() => {
-        window.addEventListener("scroll", () => { // or window.addEventListener("scroll"....
-            var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-            if (st > lastScrollTop) {
-               console.log("downscroll")
-            } else if (st < lastScrollTop) {
-                //scrollup
-            } 
-            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-         }, false);
-    }, [])
+    window.addEventListener("load", () => {
+        dataLength = state.songList.data.length;
+        setDisplayResults(state.songList.data.slice(0,displayResultsCount));
+     });
 
-    function searchByName(serachKeyWord) {
-        serachKeyWord ? dispatch(fetchSongsList(serachKeyWord)) : dispatch(fetchSongsList('akon'));
+    window.addEventListener("scroll", () => {
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+           if(displayResults.length == dataLength){
+
+           }
+           setDisplayResults(state.songList.data.slice(0,displayResultsCount));
+        } else if (st < lastScrollTop) {
+
+        } 
+        lastScrollTop = st <= 0 ? 0 : st;
+     }, false);
+
+    function searchByName(searchKeyword) {
+        searchKeyword ? dispatch(fetchSongsList(searchKeyword)) : dispatch(fetchSongsList('akon'));
     }
 
     function searchBtn() {
