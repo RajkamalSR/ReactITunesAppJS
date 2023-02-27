@@ -12,6 +12,7 @@ import './songlist.css'
 
 
 export default function SongListCompnent() {
+    let lastScrollTop = 0
     const dispatch = useDispatch();
     let state = useSelector((state) => state);
     console.log(state, "State");
@@ -19,6 +20,18 @@ export default function SongListCompnent() {
     useEffect(() => {
         dispatch(fetchSongsList('akon'));
     }, []);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => { // or window.addEventListener("scroll"....
+            var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+            if (st > lastScrollTop) {
+               console.log("downscroll")
+            } else if (st < lastScrollTop) {
+                //scrollup
+            } 
+            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+         }, false);
+    }, [])
 
     function searchByName(serachKeyWord) {
         serachKeyWord ? dispatch(fetchSongsList(serachKeyWord)) : dispatch(fetchSongsList('akon'));
