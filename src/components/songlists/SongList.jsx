@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-import { fetchSongsList } from '../../redux/reducers/songListReducer';
+import { fetchSongsList } from '../../redux/actions';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,15 +13,20 @@ import './songlist.css'
 
 export default function SongListCompnent() {
     const dispatch = useDispatch();
+    let searchOptions = {
+        searchValue: 'akon',
+        limit: 10
+    }
     let state = useSelector((state) => state);
     console.log(state, "State");
 
     useEffect(() => {
-        dispatch(fetchSongsList('akon'));
+        dispatch(fetchSongsList(searchOptions));
     }, []);
 
-    function searchByName(serachKeyWord) {
-        serachKeyWord ? dispatch(fetchSongsList(serachKeyWord)) : dispatch(fetchSongsList('akon'));
+    function searchByName(searchKeyword) {
+        searchOptions.searchValue = searchKeyword ? searchKeyword : "akon";
+        dispatch(fetchSongsList(searchOptions))
     }
 
     function searchBtn() {
