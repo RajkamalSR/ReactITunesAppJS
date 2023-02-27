@@ -38,7 +38,7 @@ export default function SongListCompnent() {
             <div className="search-box">
                 <input type="text" placeholder="Search by artist, album or song.." id="searchTxt"></input>
                 <button onClick={() => searchBtn()} type="submit" className="search-btn">
-                <span class="material-icons material-symbols-outlined search-icon">search</span>
+                <span className="material-icons material-symbols-outlined search-icon">search</span>
                 </button>
             </div>
 
