@@ -24,15 +24,6 @@
     margin-left: 14px;
     align-items: center;
   }
-
-  .songlist .loader{
-    display: block;
-    width: auto;
-    z-index: 9999;
-    position: absolute;
-    top: -74px;
-    left: 96px;
-  }
   
   img.album-image {
     width: 128px;
