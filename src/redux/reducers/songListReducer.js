@@ -1,12 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// Action
-export const fetchSongsList = createAsyncThunk("fetchSongsList", async (artistName) => {
-    const url = `https://itunes.apple.com/search?term=${artistName}`;
-    console.log(url, "url");
-    const response = await fetch(url);
-    return response.json();
-});
 
+import { fetchSongsList } from "../actions";
 
 const initialState = {
     isLoading: false,

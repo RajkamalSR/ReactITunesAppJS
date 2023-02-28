@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useState, useEffect } from 'react';
-import { fetchSongsList } from '../../redux/reducers/songListReducer';
+import { useEffect, useState } from 'react';
+import { fetchSongsList } from '../../redux/actions';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -16,27 +16,29 @@ export default function SongListCompnent() {
     let displayLimit = 10;
     let dataLength;
     const dispatch = useDispatch();
+    let searchOptions = {
+        searchValue: 'akon',
+        limit: 10
+    }
     let state = useSelector((state) => state);
     //let displayResults = state.songList.data.slice(offset, displayLimit);
     const [displayResultsCount, setDisplayResultsCount] = useState(10)
     const [displayResults, setDisplayResults] = useState([]);
 
     useEffect(() => {
-        dispatch(fetchSongsList('akon'));
+        dispatch(fetchSongsList(searchOptions));
+        setDisplayResults(state.songList.data);
     }, []);
 
     window.addEventListener("load", () => {
         dataLength = state.songList.data.length;
-        setDisplayResults(state.songList.data.slice(0,displayResultsCount));
+        console.log(displayResults, "displayResults")
      });
 
     window.addEventListener("scroll", () => {
         var st = window.pageYOffset || document.documentElement.scrollTop;
         if (st > lastScrollTop) {
-           if(displayResults.length == dataLength){
-
-           }
-           setDisplayResults(state.songList.data.slice(0,displayResultsCount));
+            searchOptions.limit += displayLimit;           
         } else if (st < lastScrollTop) {
 
         } 
@@ -44,7 +46,8 @@ export default function SongListCompnent() {
      }, false);
 
     function searchByName(searchKeyword) {
-        searchKeyword ? dispatch(fetchSongsList(searchKeyword)) : dispatch(fetchSongsList('akon'));
+        searchOptions.searchValue = searchKeyword ? searchKeyword : "akon";
+        dispatch(fetchSongsList(searchOptions))
     }
 
     function searchBtn() {
