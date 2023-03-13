@@ -95,6 +95,10 @@ img.album-image {
     cursor: pointer;
 }
 
+.album-list{
+    width: 100%;
+}
+
 .albumname{
     max-width: calc(100% - 84px);
     overflow: hidden;
