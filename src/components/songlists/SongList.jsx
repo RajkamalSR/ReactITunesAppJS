@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { fetchSongsList } from '../../redux/reducers/songListReducer';
+import { fetchSongsList } from '../../redux/actions';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,6 +14,11 @@ import './songlist.css'
 
 export default function SongListCompnent() {
     const dispatch = useDispatch();
+    //const [dataSource]
+    let searchOptions = {
+        searchValue: 'akon',
+        limit: 10
+    }
     let state = useSelector((state) => state);
     var limitValue = 10;
     console.log(state, "State");
@@ -22,8 +27,9 @@ export default function SongListCompnent() {
         dispatch(fetchSongsList('akon', 10));
     }, []);
 
-    function searchByName(serachKeyWord) {
-        serachKeyWord ? dispatch(fetchSongsList(serachKeyWord, limitValue)) : dispatch(fetchSongsList('akon', 10));
+    function searchByName(searchKeyword) {
+        searchOptions.searchValue = searchKeyword ? searchKeyword : "akon";
+        dispatch(fetchSongsList(searchOptions))
     }
 
     function searchBtn() {
