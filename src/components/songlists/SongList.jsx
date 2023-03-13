@@ -22,28 +22,35 @@ export default function SongListCompnent() {
     }
     let state = useSelector((state) => state);
     //let displayResults = state.songList.data.slice(offset, displayLimit);
+    //const [displayResultsCount, setDisplayResultsCount] = useState(10)
+    //const [displayResults, setDisplayResults] = useState([]);
+
+    const [pageNumber, setPageNumber] = useState(1);
     const [displayResultsCount, setDisplayResultsCount] = useState(10)
     const [displayResults, setDisplayResults] = useState([]);
+    const offset = 0;
+    const displatLimit =10;
 
     useEffect(() => {
         dispatch(fetchSongsList(searchOptions));
         setDisplayResults(state.songList.data);
     }, []);
 
+    useEffect(()=>{
+        window.addEventListener("scroll",()=>{
+          if((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+            setPageNumber(pageNumber + 1);
+            setDisplayResultsCount(displayResultsCount + displatLimit);
+            searchOptions.limit = displayResultsCount;
+            dispatch(fetchSongsList(searchOptions))
+          }
+         });
+      }, [])
+
     window.addEventListener("load", () => {
         dataLength = state.songList.data.length;
         console.log(displayResults, "displayResults")
      });
-
-    window.addEventListener("scroll", () => {
-        var st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-            searchOptions.limit += displayLimit;           
-        } else if (st < lastScrollTop) {
-
-        } 
-        lastScrollTop = st <= 0 ? 0 : st;
-     }, false);
 
     function searchByName(searchKeyword) {
         searchOptions.searchValue = searchKeyword ? searchKeyword : "akon";
