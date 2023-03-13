@@ -45,7 +45,6 @@ export default function SongListCompnent() {
         setDisplayResultsCount(displayResultsCount + displayLimit);
         displayLimit += 10;
         dataResults = searchResults.slice(0, displayResultsCount)
-        console.log(dataResults, "dataResults")
     }
 
     if (state.songList.isLoading) {
