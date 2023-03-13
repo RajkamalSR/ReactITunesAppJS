@@ -94,3 +94,12 @@ img.album-image {
     font-size: 3rem;
     cursor: pointer;
 }
+
+.albumname{
+    max-width: calc(100% - 84px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
