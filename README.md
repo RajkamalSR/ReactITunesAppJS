@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React Itunes App - Javascript - Release 1.0.0
 
 ## Available Scripts
 
