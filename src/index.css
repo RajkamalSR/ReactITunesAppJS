@@ -31,7 +31,8 @@ body {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(https://example.com/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
   src: local('Material Icons'),
     local('MaterialIcons-Regular'),
     url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
@@ -39,16 +40,28 @@ body {
     url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
 
-.header{
+.header {
   height: 42px;
   background: #222222ed;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-family: 'Fredoka One', cursive;
+  letter-spacing: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.header-logo{
+  font-size: 18px;
+  margin-left: 8px;
 }
 
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px;
+  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -77,6 +90,12 @@ body {
   border-radius: 52px;
 }
 
+@media screen and (max-width:420px) {
+  .search-box {
+    margin: 0 16px;
+  }
+}
+
 #searchTxt {
   width: 100%;
   border: 0;
@@ -85,7 +104,7 @@ body {
 }
 
 #searchTxt:focus-visible {
-  outline:0;
+  outline: 0;
 }
 
 #searchTxt::placeholder {
