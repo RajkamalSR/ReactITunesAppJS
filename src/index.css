@@ -39,6 +39,11 @@ body {
     url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
 
+.header{
+  height: 42px;
+  background: #222222ed;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

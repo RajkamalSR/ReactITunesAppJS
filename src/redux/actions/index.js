@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchSongsList = createAsyncThunk("fetchSongsListState", async (searchOptions) => {
     const url = `https://itunes.apple.com/search?term=${searchOptions.searchValue}&limit=${searchOptions.limit}`;
-    console.log(url, "url");
     const response = await fetch(url);
     return response.json();
 });
